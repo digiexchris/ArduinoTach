@@ -25,3 +25,18 @@ char* Clock::getTimeString() {
   char t[10] = "hh:mm";
   return rtc.now().toString(t);
 }
+
+void Clock::incrementMinutes() {
+  DateTime now = rtc.now();
+  now = now + 60;
+
+  
+  rtc.adjust(now);
+}
+
+void Clock::incrementHours() {
+  DateTime now = rtc.now();
+  now = now + 3600;
+
+  rtc.adjust(now);
+}

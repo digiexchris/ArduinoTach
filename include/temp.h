@@ -3,7 +3,7 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 // GPIO where the DS18B20 is connected to
-const int oneWireBus = 4; 
+const int oneWireBus = 2; 
 
 class Temp {
     private:
@@ -13,7 +13,7 @@ class Temp {
     public:
         Temp();
 
-        char* getTempString();
+        void getTempString(char* buffer);
 
 };
 

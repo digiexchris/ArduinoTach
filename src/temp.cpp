@@ -1,9 +1,9 @@
 #include "temp.h"
 
-char* Temp::getTempString() {
-  sensors->requestTemperatures(); 
+void Temp::getTempString(char* buffer) {
+  sensors->requestTemperatures();
   float temperatureC = sensors->getTempCByIndex(0);
-  return "12.33";//sprintf("%fºC",temperatureC);
+  sprintf(buffer, "%dC",int(temperatureC));
 }
 
 Temp::Temp() {
@@ -11,4 +11,5 @@ Temp::Temp() {
   sensors = new DallasTemperature(oneWire);
   // Start the DS18B20 sensor
   sensors->begin();
+  Serial.println("Temp Up");
 }
