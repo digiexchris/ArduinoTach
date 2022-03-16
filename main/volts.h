@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 
-const int voltagePin = A0;
+const int voltagePin = 33;
 
 class Volts {
     private:

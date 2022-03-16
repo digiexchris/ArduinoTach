@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include "RTClib.h"
 
-class Clock {
+class DashClock {
     
 
     private:
@@ -12,10 +12,10 @@ class Clock {
         
     public:
 
-        Clock();
+        DashClock();
         void incrementHours();
         void incrementMinutes();
-        char* getTimeString();
+        void getTimeString(char* buf);
         
 };
 

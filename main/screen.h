@@ -8,7 +8,7 @@
 #include <Adafruit_SSD1306.h>
 
 const double minVolts = 11.75;
-const double maxVolts = 12.6;
+const double maxVolts = 13.6;
 
 const int SCREEN_WIDTH = 128; // OLED display width, in pixels
 const int SCREEN_HEIGHT = 32; // OLED display height, in pixels
@@ -19,7 +19,7 @@ const int SCREEN_HEIGHT = 32; // OLED display height, in pixels
 // On an arduino MEGA 2560: 20(SDA), 21(SCL)
 // On an arduino LEONARDO:   2(SDA),  3(SCL), ...
 // On an ESP8266 WEMOS: D1 (SCL), D2 (SDA)
-#define OLED_RESET     LED_BUILTIN // Reset pin # (or -1 if sharing Arduino reset pin)
+#define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
 #define SCREEN_ADDRESS 0x3C ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
 
 class Screen {

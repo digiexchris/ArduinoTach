@@ -1,6 +1,6 @@
-#include "time.h"
+#include "dashtime.h"
 
-Clock::Clock() {
+DashClock::DashClock() {
   // initializing the rtc
     if(!rtc.begin()) {
         Serial.println("Couldn't find RTC!");
@@ -21,12 +21,18 @@ Clock::Clock() {
     rtc.disableAlarm(2);
 }
 
-char* Clock::getTimeString() {
-  char t[10] = "hh:mm";
-  return rtc.now().toString(t);
+void DashClock::getTimeString(char* buf) {
+  char t[6] = "hh:mm";
+  char* o;
+
+  o = rtc.now().toString(t);
+
+  for(int i=0; i < 6; ++i){
+    buf[i] = o[i];
+  }
 }
 
-void Clock::incrementMinutes() {
+void DashClock::incrementMinutes() {
   DateTime now = rtc.now();
   now = now + 60;
 
@@ -34,7 +40,7 @@ void Clock::incrementMinutes() {
   rtc.adjust(now);
 }
 
-void Clock::incrementHours() {
+void DashClock::incrementHours() {
   DateTime now = rtc.now();
   now = now + 3600;
 

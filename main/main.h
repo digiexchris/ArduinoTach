@@ -5,8 +5,10 @@
 #include "screen.h"
 #include "temp.h"
 #include "volts.h"
+#include "tach.h"
+#include "dashtime.h"
 
-#define MODE_BUTTON 0//D3 //wemos pin 0
+#define MODE_BUTTON 5//D3 //wemos pin 0
 
 //modes: tach, volts, temp, clock
 volatile int mode = 0;

@@ -3,10 +3,11 @@
 #include <EEPROM.h>
 #include "main.h"
 
-Clock clock;
+DashClock* dashclock;
 Screen* screen;
 Temp* temp;
 Volts* volts;
+Tach* tach;
 
 char* timeStr;
 
@@ -33,7 +34,7 @@ void IRAM_ATTR incrementMinutesISR() {
   if (interrupt_time - last_interrupt_time > debounceLockOut)
   {
     mode = 2;
-    clock.incrementMinutes();
+    dashclock->incrementMinutes();
   }
   last_interrupt_time = interrupt_time;
 }
@@ -46,7 +47,7 @@ void IRAM_ATTR incrementHoursISR() {
   if (interrupt_time - last_interrupt_timeH > debounceLockOutH)
   {
     mode = 2;
-    clock.incrementHours();
+    dashclock->incrementHours();
   }
   last_interrupt_timeH = interrupt_time;
 }
@@ -60,10 +61,17 @@ void setup() {
   
   Serial.begin(9600);
   Serial.print("\n"); // skip garbage
-  clock = Clock();
+  Serial.println("Starting init");
+  dashclock = new DashClock();
+  Serial.println("Clock Up");
   screen = new Screen();
+  Serial.println("Screen Up");
   temp = new Temp();
+  Serial.println("Temp Up");
   volts = new Volts();
+  Serial.println("Volts Up");
+  tach = new Tach();
+  Serial.println("Tach Up");
 
   pinMode(MODE_BUTTON, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(MODE_BUTTON), handleMode, FALLING);  
@@ -103,23 +111,26 @@ void loop() {
   screen->clearDisplay();
   switch(mode) {
     case 0:
-      screen->drawTach(3456);
+      screen->drawTach(tach->calcRPM());
+      delay(500);
       break;
     case 1:
       screen->drawVolts(volts->getVolts(), loopCounter);
+      delay(200);
       break;
     case 2:
-      timeStr = clock.getTimeString();
-      screen->drawTime(timeStr);
+      char t[10];
+      dashclock->getTimeString(t);
+      screen->drawTime(t);
+      delay(200);
       break;
     case 3:
       char tempStr [16];
       temp->getTempString(tempStr);
       screen->drawTemp(tempStr);
-      delay(100);
+      delay(300);
       break;
   }
 
   screen->write();
-  delay(100);
 }
