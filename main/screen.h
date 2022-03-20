@@ -7,11 +7,16 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
+// #define ENABLE_I2C_DEBUG_BUFFER 1
+#define SSD1306_NO_SPLASH 1
+// #define I2C_SDA 22
+// #define I2C_SCL 21
+
 const double minVolts = 11.75;
 const double maxVolts = 13.6;
 
 const int SCREEN_WIDTH = 128; // OLED display width, in pixels
-const int SCREEN_HEIGHT = 32; // OLED display height, in pixels
+const int SCREEN_HEIGHT = 64; // OLED display height, in pixels
 
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
 // The pins for I2C are defined by the Wire-library. 

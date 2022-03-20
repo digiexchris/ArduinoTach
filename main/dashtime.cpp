@@ -30,6 +30,8 @@ void DashClock::getTimeString(char* buf) {
   for(int i=0; i < 6; ++i){
     buf[i] = o[i];
   }
+
+  Serial.println(buf);
 }
 
 void DashClock::incrementMinutes() {

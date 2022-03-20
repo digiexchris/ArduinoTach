@@ -44,11 +44,11 @@ float Volts::getVolts() {
     default:
       ADCMaxVolts = 3.54;
   }
-  Serial.println(value);
-  Serial.println(ADCMaxVolts);
+  // Serial.println(value);
+  // Serial.println(ADCMaxVolts);
   vout = (value * ADCMaxVolts) / 4095.0;   // start with 3.3 and calibrate
   vin = vout / (R2/(R1+R2));
 
-  return vin;
+  return vin+0.55;
 }
 

@@ -9,6 +9,9 @@ void Screen::write() {
 }
 
 Screen::Screen() {
+  Wire.begin(16,17);
+  // TwoWire I2Cone = TwoWire(0);
+  // I2Cone.begin(21,22,100000);
   display = new Adafruit_SSD1306(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
   //   // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
   if(!display->begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
@@ -23,27 +26,35 @@ Screen::Screen() {
   delay(1);
 
   display->setTextColor(SSD1306_WHITE);
-  display->setTextSize(2.5); 
+  display->setTextSize(5); 
   display->print("TW200");
-  delay(200);
-  display->setTextSize(4.5);             // Draw 2X-scale text
+  delay(100);
+  display->setTextSize(5);             // Draw 2X-scale text
   Serial.println("Screen Up");
 }
 
 void Screen::drawTach(int rpm) {
+  display->setTextSize(5);
+  char buffer[4];
+
+  sprintf(buffer, "%d", rpm);
+
+  // swprintf(buffer, 5, L"%d", rpm);
   display->setCursor(0, 0);
-  display->print(rpm);
-  display->fillRect(0, 25, int(display->width()*(rpm/9800.0)),7, SSD1306_WHITE);
+  display->print(buffer);
+  display->fillRect(0, 40, int(display->width()*(rpm/9000.0)),24, SSD1306_WHITE);
   display->invertDisplay(false);
 }
 
 void Screen::drawTime(char* time) {
+  display->setTextSize(5);
   display->setCursor(0, 0);
   display->print(time);
   display->invertDisplay(false);
 }
 
 void Screen::drawVolts(float volts, int loop) {
+  display->setTextSize(5);
   double vc = 0;
 
   if(volts < minVolts) {
@@ -68,10 +79,11 @@ void Screen::drawVolts(float volts, int loop) {
   display->setCursor(0, 0);
   display->print(volts);
 
-  display->fillRect(0, 25, int(display->width()*(vc)),7, SSD1306_WHITE);
+  display->fillRect(0, 40, int(display->width()*(vc)),24, SSD1306_WHITE);
 }
 
 void Screen::drawTemp(char* temp) {
+  display->setTextSize(7);
   display->setCursor(0, 0);
   display->print(temp);
   display->invertDisplay(false);

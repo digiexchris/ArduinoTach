@@ -4,7 +4,7 @@
 #include <DallasTemperature.h>
 #include <Arduino.h>
 // GPIO where the DS18B20 is connected to
-const int oneWireBus = 35; 
+const int oneWireBus = 18; 
 
 class Temp {
     private:
