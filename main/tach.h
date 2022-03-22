@@ -6,7 +6,7 @@ class Tach {
     private:
         
         
-        const int rpmPin = 34;
+        const int rpmPin = 23;
         float oldtime=0;        
         float time;
         float rpm;

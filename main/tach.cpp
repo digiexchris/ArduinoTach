@@ -23,6 +23,6 @@ int Tach::calcRPM() {
   // Serial.println(revcounter);
   // Serial.println(time);
   // Serial.println(rpm);
-  return 6200;
+  // return 6200;
   return rpm;
 }
